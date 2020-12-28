@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://Phil-zyx.github.io/sitemap.xml
