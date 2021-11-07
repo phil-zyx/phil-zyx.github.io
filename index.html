@@ -32,7 +32,7 @@
 <meta property="og:description" content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://Phil-zyx.github.io/" />
-<meta property="og:updated_time" content="2020-12-28T20:52:28+08:00" />
+<meta property="og:updated_time" content="2021-03-06T11:48:00+08:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="孩子不会飞"/>
 <meta name="twitter:description" content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod"/>
@@ -162,6 +162,26 @@
 
 
 
+
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      一道GO编程题的反思
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>题目：循环按序打印&#34;dog&#34;、“cat”、fish&#34;，分别使用三个 goroutine.
+ 拿到题目，感觉简单又不简单的样子，先动手写一个最简单的打印：
+func main() { times := 100 go func() { for i := 0; i&lt;times; i&#43;&#43; { println(&#34;dog&#34;) println(&#34;cat&#34;) println(&#34;fish&#34;) } }() time.Sleep(100 * 1000) // 这时间我能算出来么，那用 channel 来接收吧 } 改进一下这让人无法预估的等待时间：使用 channel，在 goroutine 执行完之后通知主程序，巩固依稀 gorutine 和 channel 的基础知识：
+ gorutine 是并发核心，main 函数也是一个 gorutine go func() {}() 匿名函数要注意参数传入 channel 通过 make 创建，make(chan typ) 需要声明好类型 channel 通过 &lt;-ch ch &lt;- data 来接收和发送信息 channel make(ch, int, 1 表示该 ch 是一个有1个数据缓冲的 chan，即在没有接收数据的情况下，第二条数据发送之后才会阻塞 func (ch chan &lt;- int) 声明 ch 是一个单向 channel close后的 chan 依然可以接收缓冲通道的数据，但不可发送数据 select {case &lt;- ch: xx} 处理不同消息  func main() { waitCh := make(chan struct{}, 1) times := 100 go func() { for i := 0; i &lt; times; i&#43;&#43; { println(&#34;dog&#34;) println(&#34;cat&#34;) println(&#34;fish&#34;) } waitCh &lt;- struct{}{} }() &lt;-waitCh } waitCh 听起来怎么这么熟悉呢？go 本身在面对这些情况已经实现了一个工具类，sync 包中提供的基础原语： waitGroup 。巩固一下：...</p>
+  </section>
+  <footer class="entry-footer">
+
+March 6, 2021&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;孩子不会飞
+</footer>
+  <a class="entry-link" aria-label="post link to 一道GO编程题的反思" href="https://Phil-zyx.github.io/posts/%E4%B8%80%E9%81%93go%E7%BC%96%E7%A8%8B%E9%A2%98%E7%9A%84%E5%8F%8D%E6%80%9D/"></a>
+</article>
 
 <article class="post-entry"> 
 

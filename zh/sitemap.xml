@@ -3,18 +3,23 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://Phil-zyx.github.io/posts/summary2020/</loc>
-    <lastmod>2020-12-28T20:52:28+08:00</lastmod>
+    <loc>https://Phil-zyx.github.io/tags/go/</loc>
+    <lastmod>2021-03-06T11:48:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://Phil-zyx.github.io/tags/interview/</loc>
+    <lastmod>2021-03-06T11:48:00+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://Phil-zyx.github.io/posts/</loc>
-    <lastmod>2020-12-28T20:52:28+08:00</lastmod>
+    <lastmod>2021-03-06T11:48:00+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://Phil-zyx.github.io/tags/</loc>
-    <lastmod>2020-12-28T20:52:28+08:00</lastmod>
+    <lastmod>2021-03-06T11:48:00+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -28,13 +33,13 @@
   </url>
   
   <url>
-    <loc>https://Phil-zyx.github.io/tags/%E5%8F%8D%E6%80%9D/</loc>
-    <lastmod>2020-12-28T20:52:28+08:00</lastmod>
+    <loc>https://Phil-zyx.github.io/posts/%E4%B8%80%E9%81%93go%E7%BC%96%E7%A8%8B%E9%A2%98%E7%9A%84%E5%8F%8D%E6%80%9D/</loc>
+    <lastmod>2021-03-06T11:48:00+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://Phil-zyx.github.io/</loc>
-    <lastmod>2020-12-28T20:52:28+08:00</lastmod>
+    <lastmod>2021-03-06T11:48:00+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -45,6 +50,16 @@
                 hreflang="zh"
                 href="https://Phil-zyx.github.io/"
                 />
+  </url>
+  
+  <url>
+    <loc>https://Phil-zyx.github.io/posts/summary2020/</loc>
+    <lastmod>2020-12-28T20:52:28+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://Phil-zyx.github.io/tags/%E5%8F%8D%E6%80%9D/</loc>
+    <lastmod>2020-12-28T20:52:28+08:00</lastmod>
   </url>
   
   <url>
