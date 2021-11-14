@@ -30,7 +30,7 @@
 <meta property="og:description" content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://Phil-zyx.github.io/posts/" />
-<meta property="og:updated_time" content="2021-03-06T11:48:00+08:00" />
+<meta property="og:updated_time" content="2021-03-14T15:21:31+08:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Posts"/>
 <meta name="twitter:description" content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod"/>
@@ -140,6 +140,31 @@
 
 
 
+
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      漫谈游戏服务器节点通信
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>最近工作上做了一些关于跨服玩法的内容，对于 RPC 通信实现这块做下学习笔记整理。
+ 分布式架构 当下的大环境下，服务器架构基本都是分布式架构。分布式架构带来的最大好处在于服务扩展，我们 SLG 游戏服务器从游戏特性上来说，符合小服架构（一个服即一个生态），这样从分布式架构的设计理念，按功能划分，网关、支付、战场（这里不是指单服的战斗要实现一个节点，而是一些副本玩法，跨服玩法等设计的）、第三方等，这样的每个 server 我们称之为一个节点（Node）。
+RPC RPC:允许运行于一台计算机的程序调用另一个计算机的程序。RPC是一种服务器-客户端（Client/Server）模式。
+RPC 的核心概念即调用远程服务就像调用本地的一个函数一样简单。
+通过原理我们知道 RPC 需要实现的几个点:
+ 通信：在两个 server 之间建立连接 寻址：如何定位需要调用 x-Server 序列化：两个 server 之间是网络通信，那么二进制传输就需要序列化  一些常用的框架（轮子必然是有的）：
+ gRPC: 谷歌开源 RPC 框架，基于 HTTP/2 协议通信和 ProtoBuf 序列化协议 Thrift: Apache 旗下，基于 Facebook 的 RPC 框架开发 JsonRPC: 无状态、轻量级，基于 json 序列化  框架选择：两个项目，早期的一个选择 thrift （当时 gRPC 才开源初期），另一个选择了 gRPC ，对比来说，两者在使用上区别不是很大，但是 gRPC 能拥有良好的文档，更加简洁和拥有广泛使用的 ProtoBuf，而 thrift 的大优势是支持多语言。选择根据项目自身的特性来，对于我们项目，文档和简洁比较重要。（技术选型还得是项目初始大佬们的选择:joy:）
+节点间通信 如上，RPC 框架选择 gRPC，基于此，整个通信流程：
+client -&gt; gateway -&gt; game server -&gt; other server -&gt; 处理后返回...</p>
+  </section>
+  <footer class="entry-footer">
+
+March 14, 2021&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;孩子不会飞
+</footer>
+  <a class="entry-link" aria-label="post link to 漫谈游戏服务器节点通信" href="https://Phil-zyx.github.io/posts/%E6%BC%AB%E8%B0%88%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%8A%82%E7%82%B9%E9%80%9A%E4%BF%A1/"></a>
+</article>
 
 <article class="post-entry"> 
 

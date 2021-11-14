@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Go on 孩子不会飞</title>
-    <link>https://Phil-zyx.github.io/tags/go/</link>
-    <description>Recent content in Go on 孩子不会飞</description>
+    <title>rpc on 孩子不会飞</title>
+    <link>https://Phil-zyx.github.io/tags/rpc/</link>
+    <description>Recent content in rpc on 孩子不会飞</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 14 Mar 2021 15:21:31 +0800</lastBuildDate><atom:link href="https://Phil-zyx.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 14 Mar 2021 15:21:31 +0800</lastBuildDate><atom:link href="https://Phil-zyx.github.io/tags/rpc/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>漫谈游戏服务器节点通信</title>
       <link>https://Phil-zyx.github.io/posts/%E6%BC%AB%E8%B0%88%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%8A%82%E7%82%B9%E9%80%9A%E4%BF%A1/</link>
@@ -21,18 +21,6 @@ RPC 的核心概念即调用远程服务就像调用本地的一个函数一样�
  gRPC: 谷歌开源 RPC 框架，基于 HTTP/2 协议通信和 ProtoBuf 序列化协议 Thrift: Apache 旗下，基于 Facebook 的 RPC 框架开发 JsonRPC: 无状态、轻量级，基于 json 序列化  框架选择：两个项目，早期的一个选择 thrift （当时 gRPC 才开源初期），另一个选择了 gRPC ，对比来说，两者在使用上区别不是很大，但是 gRPC 能拥有良好的文档，更加简洁和拥有广泛使用的 ProtoBuf，而 thrift 的大优势是支持多语言。选择根据项目自身的特性来，对于我们项目，文档和简洁比较重要。（技术选型还得是项目初始大佬们的选择:joy:）
 节点间通信 如上，RPC 框架选择 gRPC，基于此，整个通信流程：
 client -&amp;gt; gateway -&amp;gt; game server -&amp;gt; other server -&amp;gt; 处理后返回</description>
-    </item>
-    
-    <item>
-      <title>一道GO编程题的反思</title>
-      <link>https://Phil-zyx.github.io/posts/%E4%B8%80%E9%81%93go%E7%BC%96%E7%A8%8B%E9%A2%98%E7%9A%84%E5%8F%8D%E6%80%9D/</link>
-      <pubDate>Sat, 06 Mar 2021 11:48:00 +0800</pubDate>
-      
-      <guid>https://Phil-zyx.github.io/posts/%E4%B8%80%E9%81%93go%E7%BC%96%E7%A8%8B%E9%A2%98%E7%9A%84%E5%8F%8D%E6%80%9D/</guid>
-      <description>题目：循环按序打印&amp;quot;dog&amp;quot;、&amp;ldquo;cat&amp;rdquo;、fish&amp;quot;，分别使用三个 goroutine.
- 拿到题目，感觉简单又不简单的样子，先动手写一个最简单的打印：
-func main() { times := 100 go func() { for i := 0; i&amp;lt;times; i++ { println(&amp;#34;dog&amp;#34;) println(&amp;#34;cat&amp;#34;) println(&amp;#34;fish&amp;#34;) } }() time.Sleep(100 * 1000) // 这时间我能算出来么，那用 channel 来接收吧 } 改进一下这让人无法预估的等待时间：使用 channel，在 goroutine 执行完之后通知主程序，巩固依稀 gorutine 和 channel 的基础知识：
- gorutine 是并发核心，main 函数也是一个 gorutine go func() {}() 匿名函数要注意参数传入 channel 通过 make 创建，make(chan typ) 需要声明好类型 channel 通过 &amp;lt;-ch ch &amp;lt;- data 来接收和发送信息 channel make(ch, int, 1 表示该 ch 是一个有1个数据缓冲的 chan，即在没有接收数据的情况下，第二条数据发送之后才会阻塞 func (ch chan &amp;lt;- int) 声明 ch 是一个单向 channel close后的 chan 依然可以接收缓冲通道的数据，但不可发送数据 select {case &amp;lt;- ch: xx} 处理不同消息  func main() { waitCh := make(chan struct{}, 1) times := 100 go func() { for i := 0; i &amp;lt; times; i++ { println(&amp;#34;dog&amp;#34;) println(&amp;#34;cat&amp;#34;) println(&amp;#34;fish&amp;#34;) } waitCh &amp;lt;- struct{}{} }() &amp;lt;-waitCh } waitCh 听起来怎么这么熟悉呢？go 本身在面对这些情况已经实现了一个工具类，sync 包中提供的基础原语： waitGroup 。巩固一下：</description>
     </item>
     
   </channel>
