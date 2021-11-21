@@ -6,14 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>interview | 孩子不会飞</title>
-
 <meta name="keywords" content="" />
 <meta name="description" content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">
 <meta name="author" content="孩子不会飞">
 <link rel="canonical" href="https://Phil-zyx.github.io/tags/interview/" />
-<link href="/assets/css/stylesheet.min.0e4a1b49e740c28140e9ee4945aab2f86cb0a7bfbf5a5d612d0cb5df7d6141f4.css" integrity="sha256-DkobSedAwoFA6e5JRaqy&#43;Gywp7&#43;/Wl1hLQy1331hQfQ=" rel="preload stylesheet"
-    as="style">
-
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://Phil-zyx.github.io/img/icons8-keyboard-48.png">
 <link rel="icon" type="image/png" sizes="16x16" href="https://Phil-zyx.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://Phil-zyx.github.io/favicon-32x32.png">
@@ -21,21 +18,53 @@
 <link rel="mask-icon" href="https://Phil-zyx.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.79.1" />
-<link rel="alternate" type="application/rss&#43;xml" href="https://Phil-zyx.github.io/tags/interview/index.xml">
+<meta name="generator" content="Hugo 0.89.4" />
+<link rel="alternate" type="application/rss+xml" href="https://Phil-zyx.github.io/tags/interview/index.xml">
 <link rel="alternate" hreflang="zh" href="https://Phil-zyx.github.io/tags/interview/" />
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
 
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
 
-<meta property="og:title" content="interview" />
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="interview" />
 <meta property="og:description" content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://Phil-zyx.github.io/tags/interview/" />
-<meta property="og:updated_time" content="2021-03-06T11:48:00+08:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="interview"/>
 <meta name="twitter:description" content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod"/>
-
-
 
 </head>
 
@@ -50,15 +79,7 @@
     }
 
 </script>
-<noscript>
-    <style type="text/css">
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
 
-    </style>
-</noscript>
 <header class="header">
     <nav class="nav">
         <div class="logo">
@@ -84,9 +105,6 @@
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
                 </button>
-                
-                
-
                 <ul class="lang-switch"><li>|</li>
                     <li>
                         <a href="https://Phil-zyx.github.io/en/" title="EN"
@@ -95,7 +113,7 @@
                 </ul>
             </span>
         </div>
-        <ul id="menu" onscroll="menu_on_scroll()">
+        <ul id="menu">
             <li>
                 <a href="https://Phil-zyx.github.io/archives" title="归档">
                     <span>归档</span>
@@ -115,25 +133,18 @@
                 <a href="https://Phil-zyx.github.io/aboutme/" title="关于">
                     <span>关于</span>
                 </a>
-            </li></ul>
+            </li>
+        </ul>
     </nav>
 </header>
-
-    <main class="main"> 
+<main class="main"> 
 <header class="page-header">
-
   <h1>interview</h1>
 </header>
 
-
-
-
-
 <article class="post-entry tag-entry"> 
-
   <header class="entry-header">
-    <h2>
-      一道GO编程题的反思
+    <h2>一道GO编程题的反思
     </h2>
   </header>
   <section class="entry-content">
@@ -142,36 +153,34 @@
 func main() { times := 100 go func() { for i := 0; i&lt;times; i&#43;&#43; { println(&#34;dog&#34;) println(&#34;cat&#34;) println(&#34;fish&#34;) } }() time.Sleep(100 * 1000) // 这时间我能算出来么，那用 channel 来接收吧 } 改进一下这让人无法预估的等待时间：使用 channel，在 goroutine 执行完之后通知主程序，巩固依稀 gorutine 和 channel 的基础知识：
  gorutine 是并发核心，main 函数也是一个 gorutine go func() {}() 匿名函数要注意参数传入 channel 通过 make 创建，make(chan typ) 需要声明好类型 channel 通过 &lt;-ch ch &lt;- data 来接收和发送信息 channel make(ch, int, 1 表示该 ch 是一个有1个数据缓冲的 chan，即在没有接收数据的情况下，第二条数据发送之后才会阻塞 func (ch chan &lt;- int) 声明 ch 是一个单向 channel close后的 chan 依然可以接收缓冲通道的数据，但不可发送数据 select {case &lt;- ch: xx} 处理不同消息  func main() { waitCh := make(chan struct{}, 1) times := 100 go func() { for i := 0; i &lt; times; i&#43;&#43; { println(&#34;dog&#34;) println(&#34;cat&#34;) println(&#34;fish&#34;) } waitCh &lt;- struct{}{} }() &lt;-waitCh } waitCh 听起来怎么这么熟悉呢？go 本身在面对这些情况已经实现了一个工具类，sync 包中提供的基础原语： waitGroup 。巩固一下：...</p>
   </section>
-  <footer class="entry-footer">
-
-March 6, 2021&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;孩子不会飞
-</footer>
+  <footer class="entry-footer"><span title='2021-03-06 11:48:00 +0800 CST'>March 6, 2021</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;孩子不会飞</footer>
   <a class="entry-link" aria-label="post link to 一道GO编程题的反思" href="https://Phil-zyx.github.io/posts/%E4%B8%80%E9%81%93go%E7%BC%96%E7%A8%8B%E9%A2%98%E7%9A%84%E5%8F%8D%E6%80%9D/"></a>
 </article>
-
-    </main><footer class="footer">
+    </main>
+    
+<footer class="footer">
     <span>&copy; 2021 <a href="https://Phil-zyx.github.io/">孩子不会飞</a></span>
-    <span>&middot;</span>
-    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
-    <span>&middot;</span>
-    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
 </footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)">
-    <button class="top-link" id="top-link" type="button" accesskey="g">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-            <path d="M12 6H0l6-6z" />
-        </svg>
-    </button>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
 </a>
 
-
-
 <script>
-    window.onload = function () {
-        if (localStorage.getItem("menu-scroll-position")) {
-            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
         }
     }
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener("click", function (e) {
             e.preventDefault();
@@ -190,6 +199,9 @@ March 6, 2021&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;孩子不会飞
             }
         });
     });
+
+</script>
+<script>
     var mybutton = document.getElementById("top-link");
     window.onscroll = function () {
         if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
@@ -200,10 +212,6 @@ March 6, 2021&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;孩子不会飞
             mybutton.style.opacity = "0";
         }
     };
-
-    function menu_on_scroll() {
-        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
-    }
 
 </script>
 <script>
@@ -218,7 +226,6 @@ March 6, 2021&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;孩子不会飞
     })
 
 </script>
-
 </body>
 
 </html>

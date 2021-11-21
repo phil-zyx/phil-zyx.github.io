@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://Phil-zyx.github.io/tags/go/</loc>
     <lastmod>2021-03-14T15:21:31+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://Phil-zyx.github.io/posts/</loc>
     <lastmod>2021-03-14T15:21:31+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://Phil-zyx.github.io/tags/rpc/</loc>
     <lastmod>2021-03-14T15:21:31+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://Phil-zyx.github.io/tags/</loc>
     <lastmod>2021-03-14T15:21:31+08:00</lastmod>
     <xhtml:link
@@ -30,9 +23,7 @@
                 hreflang="zh"
                 href="https://Phil-zyx.github.io/tags/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://Phil-zyx.github.io/</loc>
     <lastmod>2021-03-14T15:21:31+08:00</lastmod>
     <xhtml:link
@@ -45,39 +36,25 @@
                 hreflang="zh"
                 href="https://Phil-zyx.github.io/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://Phil-zyx.github.io/posts/%E6%BC%AB%E8%B0%88%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%8A%82%E7%82%B9%E9%80%9A%E4%BF%A1/</loc>
     <lastmod>2021-03-14T15:21:31+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://Phil-zyx.github.io/tags/interview/</loc>
     <lastmod>2021-03-06T11:48:00+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://Phil-zyx.github.io/posts/%E4%B8%80%E9%81%93go%E7%BC%96%E7%A8%8B%E9%A2%98%E7%9A%84%E5%8F%8D%E6%80%9D/</loc>
     <lastmod>2021-03-06T11:48:00+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://Phil-zyx.github.io/posts/summary2020/</loc>
     <lastmod>2020-12-28T20:52:28+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://Phil-zyx.github.io/tags/%E5%8F%8D%E6%80%9D/</loc>
     <lastmod>2020-12-28T20:52:28+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://Phil-zyx.github.io/tags/%E7%94%9F%E6%B4%BB/</loc>
     <lastmod>2020-12-28T20:52:28+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://Phil-zyx.github.io/about/</loc>
     <xhtml:link
                 rel="alternate"
@@ -89,13 +66,9 @@
                 hreflang="zh"
                 href="https://Phil-zyx.github.io/about/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://Phil-zyx.github.io/aboutme/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://Phil-zyx.github.io/categories/</loc>
     <xhtml:link
                 rel="alternate"
@@ -107,9 +80,7 @@
                 hreflang="zh"
                 href="https://Phil-zyx.github.io/categories/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://Phil-zyx.github.io/series/</loc>
     <xhtml:link
                 rel="alternate"
@@ -121,14 +92,9 @@
                 hreflang="zh"
                 href="https://Phil-zyx.github.io/series/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://Phil-zyx.github.io/archives/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://Phil-zyx.github.io/search/</loc>
   </url>
-  
 </urlset>

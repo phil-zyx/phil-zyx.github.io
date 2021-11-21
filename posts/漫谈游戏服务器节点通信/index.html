@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>漫谈游戏服务器节点通信 | 孩子不会飞</title>
-
 <meta name="keywords" content="rpc, go" />
 <meta name="description" content="最近工作上做了一些关于跨服玩法的内容，对于 RPC 通信实现这块做下学习笔记整理。
  分布式架构 当下的大环境下，服务器架构基本都是分布式架构。分布式架构带来的最大好处在于服务扩展，我们 SLG 游戏服务器从游戏特性上来说，符合小服架构（一个服即一个生态），这样从分布式架构的设计理念，按功能划分，网关、支付、战场（这里不是指单服的战斗要实现一个节点，而是一些副本玩法，跨服玩法等设计的）、第三方等，这样的每个 server 我们称之为一个节点（Node）。
@@ -19,9 +18,9 @@ RPC 的核心概念即调用远程服务就像调用本地的一个函数一样�
 client -&gt; gateway -&gt; game server -&gt; other server -&gt; 处理后返回">
 <meta name="author" content="孩子不会飞">
 <link rel="canonical" href="https://Phil-zyx.github.io/posts/%E6%BC%AB%E8%B0%88%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%8A%82%E7%82%B9%E9%80%9A%E4%BF%A1/" />
-<link href="/assets/css/stylesheet.min.0e4a1b49e740c28140e9ee4945aab2f86cb0a7bfbf5a5d612d0cb5df7d6141f4.css" integrity="sha256-DkobSedAwoFA6e5JRaqy&#43;Gywp7&#43;/Wl1hLQy1331hQfQ=" rel="preload stylesheet"
-    as="style">
-
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+    onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://Phil-zyx.github.io/img/icons8-keyboard-48.png">
 <link rel="icon" type="image/png" sizes="16x16" href="https://Phil-zyx.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://Phil-zyx.github.io/favicon-32x32.png">
@@ -29,11 +28,45 @@ client -&gt; gateway -&gt; game server -&gt; other server -&gt; 处理后返回"
 <link rel="mask-icon" href="https://Phil-zyx.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.79.1" />
+<meta name="generator" content="Hugo 0.89.4" />
 <link rel="alternate" hreflang="zh" href="https://Phil-zyx.github.io/posts/%E6%BC%AB%E8%B0%88%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%8A%82%E7%82%B9%E9%80%9A%E4%BF%A1/" />
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
 
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
 
-<meta property="og:title" content="漫谈游戏服务器节点通信" />
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="漫谈游戏服务器节点通信" />
 <meta property="og:description" content="最近工作上做了一些关于跨服玩法的内容，对于 RPC 通信实现这块做下学习笔记整理。
  分布式架构 当下的大环境下，服务器架构基本都是分布式架构。分布式架构带来的最大好处在于服务扩展，我们 SLG 游戏服务器从游戏特性上来说，符合小服架构（一个服即一个生态），这样从分布式架构的设计理念，按功能划分，网关、支付、战场（这里不是指单服的战斗要实现一个节点，而是一些副本玩法，跨服玩法等设计的）、第三方等，这样的每个 server 我们称之为一个节点（Node）。
 RPC RPC:允许运行于一台计算机的程序调用另一个计算机的程序。RPC是一种服务器-客户端（Client/Server）模式。
@@ -44,9 +77,10 @@ RPC 的核心概念即调用远程服务就像调用本地的一个函数一样�
 节点间通信 如上，RPC 框架选择 gRPC，基于此，整个通信流程：
 client -&gt; gateway -&gt; game server -&gt; other server -&gt; 处理后返回" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://Phil-zyx.github.io/posts/%E6%BC%AB%E8%B0%88%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%8A%82%E7%82%B9%E9%80%9A%E4%BF%A1/" />
-<meta property="article:published_time" content="2021-03-14T15:21:31+08:00" />
-<meta property="article:modified_time" content="2021-03-14T15:21:31+08:00" />
+<meta property="og:url" content="https://Phil-zyx.github.io/posts/%E6%BC%AB%E8%B0%88%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%8A%82%E7%82%B9%E9%80%9A%E4%BF%A1/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-03-14T15:21:31&#43;08:00" />
+<meta property="article:modified_time" content="2021-03-14T15:21:31&#43;08:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="漫谈游戏服务器节点通信"/>
 <meta name="twitter:description" content="最近工作上做了一些关于跨服玩法的内容，对于 RPC 通信实现这块做下学习笔记整理。
@@ -86,7 +120,7 @@ client -&gt; gateway -&gt; game server -&gt; other server -&gt; 处理后返回"
   "@type": "BlogPosting",
   "headline": "漫谈游戏服务器节点通信",
   "name": "漫谈游戏服务器节点通信",
-  "description": "最近工作上做了一些关于跨服玩法的内容，对于 RPC 通信实现这块做下学习笔记整理。\n 分布式架构 当下的大环境下，服务器架构基本都是分布式架构。分布式架构带来的最大好处在于服务扩展，我们 SLG 游戏服务器从游戏特性上来说，符合小服架构（一个服即一个生态），这样从分布式架构的设计理念，按功能划分，网关、支付、战场（这里不是指单服的战斗要实现一个节点，而是一些 …",
+  "description": "最近工作上做了一些关于跨服玩法的内容，对于 RPC 通信实现这块做下学习笔记整理。\n 分布式架构 当下的大环境下，服务器架构基本都是分布式架构。分布式架构带来的最大好处在于服务扩展，我们 SLG 游戏服务器从游戏特性上来说，符合小服架构（一个服即一个生态），这样从分布式架构的设计理念，按功能划分，网关、支付、战场（这里不是指单服的战斗要实现一个节点，而是一些副本玩法，跨服玩法等设计的）、第三方等，这样的每个 server 我们称之为一个节点（Node）。\nRPC RPC:允许运行于一台计算机的程序调用另一个计算机的程序。RPC是一种服务器-客户端（Client/Server）模式。\nRPC 的核心概念即调用远程服务就像调用本地的一个函数一样简单。\n通过原理我们知道 RPC 需要实现的几个点:\n 通信：在两个 server 之间建立连接 寻址：如何定位需要调用 x-Server 序列化：两个 server 之间是网络通信，那么二进制传输就需要序列化  一些常用的框架（轮子必然是有的）：\n gRPC: 谷歌开源 RPC 框架，基于 HTTP/2 协议通信和 ProtoBuf 序列化协议 Thrift: Apache 旗下，基于 Facebook 的 RPC 框架开发 JsonRPC: 无状态、轻量级，基于 json 序列化  框架选择：两个项目，早期的一个选择 thrift （当时 gRPC 才开源初期），另一个选择了 gRPC ，对比来说，两者在使用上区别不是很大，但是 gRPC 能拥有良好的文档，更加简洁和拥有广泛使用的 ProtoBuf，而 thrift 的大优势是支持多语言。选择根据项目自身的特性来，对于我们项目，文档和简洁比较重要。（技术选型还得是项目初始大佬们的选择:joy:）\n节点间通信 如上，RPC 框架选择 gRPC，基于此，整个通信流程：\nclient -\u0026gt; gateway -\u0026gt; game server -\u0026gt; other server -\u0026gt; 处理后返回",
   "keywords": [
     "rpc", "go"
   ],
@@ -113,11 +147,6 @@ client -&gt; gateway -&gt; game server -&gt; other server -&gt; 处理后返回"
   }
 }
 </script>
-
-
-
-
-
 </head>
 
 <body class="" id="top">
@@ -131,15 +160,7 @@ client -&gt; gateway -&gt; game server -&gt; other server -&gt; 处理后返回"
     }
 
 </script>
-<noscript>
-    <style type="text/css">
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
 
-    </style>
-</noscript>
 <header class="header">
     <nav class="nav">
         <div class="logo">
@@ -165,9 +186,6 @@ client -&gt; gateway -&gt; game server -&gt; other server -&gt; 处理后返回"
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
                 </button>
-                
-                
-
                 <ul class="lang-switch"><li>|</li>
                     <li>
                         <a href="https://Phil-zyx.github.io/en/" title="EN"
@@ -176,7 +194,7 @@ client -&gt; gateway -&gt; game server -&gt; other server -&gt; 处理后返回"
                 </ul>
             </span>
         </div>
-        <ul id="menu" onscroll="menu_on_scroll()">
+        <ul id="menu">
             <li>
                 <a href="https://Phil-zyx.github.io/archives" title="归档">
                     <span>归档</span>
@@ -196,27 +214,23 @@ client -&gt; gateway -&gt; game server -&gt; other server -&gt; 处理后返回"
                 <a href="https://Phil-zyx.github.io/aboutme/" title="关于">
                     <span>关于</span>
                 </a>
-            </li></ul>
+            </li>
+        </ul>
     </nav>
 </header>
-
-    <main class="main">
+<main class="main">
 
 <article class="post-single">
   <header class="post-header">
-
+    
     <h1 class="post-title">
       漫谈游戏服务器节点通信
     </h1>
-    <div class="post-meta">
-
-March 14, 2021&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;孩子不会飞
+    <div class="post-meta"><span title='2021-03-14 15:21:31 +0800 CST'>March 14, 2021</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;孩子不会飞
 
 </div>
   </header> 
-
-  <div class="post-content">
-<blockquote>
+  <div class="post-content"><blockquote>
 <p>最近工作上做了一些关于跨服玩法的内容，对于 RPC 通信实现这块做下学习笔记整理。</p>
 </blockquote>
 <h4 id="分布式架构">分布式架构<a hidden class="anchor" aria-hidden="true" href="#分布式架构">#</a></h4>
@@ -259,17 +273,14 @@ March 14, 2021&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;孩子不会飞
 <li>当需求变化伴随节点细分变多，耦合变重，那么网络拓扑也会变成一个问题，这种情况下的 steam 就不能很好的胜任。</li>
 </ul>
 
-</div>
+
+  </div>
+
   <footer class="post-footer">
     <ul class="post-tags">
       <li><a href="https://Phil-zyx.github.io/tags/rpc/">rpc</a></li>
       <li><a href="https://Phil-zyx.github.io/tags/go/">Go</a></li>
     </ul>
-
-
-
-
-
 
 <div class="share-buttons">
     <a target="_blank" rel="noopener noreferrer" aria-label="share 漫谈游戏服务器节点通信 on twitter"
@@ -316,33 +327,54 @@ March 14, 2021&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;孩子不会飞
     </a>
 </div>
 
-  </footer>
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+    clientID: 'e1367c09f45ac867c92b',
+    clientSecret: '= \u0022ddefab01300bd6f0464925c9b65034ff20ee713e\u0022',
+    repo: 'phil-zyx.github.io',
+    owner: 'phil-zyx',
+    admin: ['phil-zyx'],
+    id: location.pathname, 
+    distractionFreeMode: false 
+  });
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
+      return;
+    }
+    gitalk.render('gitalk-container');
+  })();
+</script>
+</footer>w
 </article>
-    </main><footer class="footer">
+    </main>
+    
+<footer class="footer">
     <span>&copy; 2021 <a href="https://Phil-zyx.github.io/">孩子不会飞</a></span>
-    <span>&middot;</span>
-    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
-    <span>&middot;</span>
-    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
 </footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)">
-    <button class="top-link" id="top-link" type="button" accesskey="g">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-            <path d="M12 6H0l6-6z" />
-        </svg>
-    </button>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
 </a>
 
-
-
-<script defer src="/assets/js/highlight.min.27cd435cc9ed6abb4b496581b151804f79f366c412620272bb94e2f5f598ebcc.js" integrity="sha256-J81DXMntartLSWWBsVGAT3nzZsQSYgJyu5Ti9fWY68w="
-    onload="hljs.initHighlightingOnLoad();"></script>
 <script>
-    window.onload = function () {
-        if (localStorage.getItem("menu-scroll-position")) {
-            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
         }
     }
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener("click", function (e) {
             e.preventDefault();
@@ -361,6 +393,9 @@ March 14, 2021&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;孩子不会飞
             }
         });
     });
+
+</script>
+<script>
     var mybutton = document.getElementById("top-link");
     window.onscroll = function () {
         if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
@@ -371,10 +406,6 @@ March 14, 2021&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;孩子不会飞
             mybutton.style.opacity = "0";
         }
     };
-
-    function menu_on_scroll() {
-        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
-    }
 
 </script>
 <script>
@@ -389,7 +420,6 @@ March 14, 2021&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;孩子不会飞
     })
 
 </script>
-
 </body>
 
 </html>
