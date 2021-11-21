@@ -337,19 +337,19 @@ client -&gt; gateway -&gt; game server -&gt; other server -&gt; 处理后返回"
     repo: 'phil-zyx.github.io',
     owner: 'phil-zyx',
     admin: ['phil-zyx'],
-    id: location.pathname, 
+    id: md5(location.pathname), 
     distractionFreeMode: false 
   });
   (function() {
-    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-      document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
-      return;
-    }
+    
+    
+    
+    
   
     gitalk.render('gitalk-container');
   })();
 </script>
-</footer>w
+</footer>
 </article>
     </main>
     
