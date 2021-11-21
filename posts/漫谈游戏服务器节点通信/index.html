@@ -333,7 +333,7 @@ client -&gt; gateway -&gt; game server -&gt; other server -&gt; 处理后返回"
 <script>
   const gitalk = new Gitalk({
     clientID: 'e1367c09f45ac867c92b',
-    clientSecret: '= \u0022ddefab01300bd6f0464925c9b65034ff20ee713e\u0022',
+    clientSecret: '4aae3c1e85ebdf6a9270c0f155a05dde57834602',
     repo: 'phil-zyx.github.io',
     owner: 'phil-zyx',
     admin: ['phil-zyx'],
@@ -345,6 +345,7 @@ client -&gt; gateway -&gt; game server -&gt; other server -&gt; 处理后返回"
       document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
       return;
     }
+  
     gitalk.render('gitalk-container');
   })();
 </script>
