@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>胡言乱语 on 孩子不会飞</title>
+    <link>https://Phil-zyx.github.io/tags/%E8%83%A1%E8%A8%80%E4%B9%B1%E8%AF%AD/</link>
+    <description>Recent content in 胡言乱语 on 孩子不会飞</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 05 Mar 2023 23:24:25 +0800</lastBuildDate><atom:link href="https://Phil-zyx.github.io/tags/%E8%83%A1%E8%A8%80%E4%B9%B1%E8%AF%AD/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>游戏服务器开发的未来？</title>
+      <link>https://Phil-zyx.github.io/posts/gameserverprogrammer/</link>
+      <pubDate>Sun, 05 Mar 2023 23:24:25 +0800</pubDate>
+      
+      <guid>https://Phil-zyx.github.io/posts/gameserverprogrammer/</guid>
+      <description>脑暴想法的由来  话题来自知乎，从而衍生的想法，记录下来 游戏服务器开发属于游戏开发鄙视链底端？ 米哈游出品的原神，告诉了游戏服务器开发一个事情，策划+客户端+美术出品的若服务器游戏模式也可以相当成功。是不是随着原神模式的发展，游戏服务器开发这个岗位需求将越来越少？ chatGPT 这把火越烧越大，游戏服务器开发能集成进游戏服务端去吗？游戏服务器开发能不能造就现象级的，对游戏具备影响的东西呢？  自问自答  游戏服务器开发是不是在鄙视链末端，这点有待商榷，就当前SLG游戏来说，作为打工人的同事，策划or运营，都认为自己在末端。技术无边界，这里的出发点是单纯从游戏来说，游戏的核心是玩法和表现，这里最重要的是策划、客户端、美术，这些东西是直接影响到玩家的，作为一个游戏玩家，不会直观的了解到服务器，这也说明服务器对游戏的影响很小。如此，服务器开发确实在一个末端。 最近刷到原神又成为了收入榜头名，原神模式是不是真的可以抄作业呢？我认为不可。从游戏收入排行榜来看，此模式仅此一家，此类游戏的市场份额极小。同榜单的王者、PUBG等模式仍然是主流，这类和服务器强交互的游戏依然是市场的大头。原神模式会带动一些厂商往这个方向靠，但是赛道依然是各种游戏品类共进的，大部分游戏品类，是无法脱离服务器的。 特别是openAI开放了接口之后，各类chatGPT衍生的项目如雨后春笋般。有些让人眼前一亮的，如chatPDF、自建的自动客服等。那么对于游戏来说，有哪些地方可以接入：对话NPC、游戏内的自动客服、游戏玩法介绍问答等。而现象级的，我想应该是真正的AI，比如引导机器人、对战机器人，可以做到有边界，也有训练，真正做到玩家无法感知其是否是人机。  一些思考  开发不应该设置技术壁垒。具体的说游戏服务器开发和后端开发，客户端开发只是技术侧重点差别而已，其技术本身并没有太大的差别，程序始终都应该保持对技术本身的追求。 如果有想要做独立游戏的想法，那么技术无边界也引导自身去学习客户端开发。AI的发展，像是图像生成已经变得相当可行，做产品会比之前更加简单，我们要去成为站在巨人肩膀上的人。 畅想未来游戏服务器是怎么样的？   云与云计算 AI像真实玩家一样 云游戏，随时随地3A大作 脑机接口 and VR：像《游戏玩家》一样的游戏  </description>
+    </item>
+    
+  </channel>
+</rss>

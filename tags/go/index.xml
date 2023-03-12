@@ -5,7 +5,21 @@
     <link>https://Phil-zyx.github.io/tags/go/</link>
     <description>Recent content in Go on 孩子不会飞</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 14 Mar 2021 15:21:31 +0800</lastBuildDate><atom:link href="https://Phil-zyx.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 09 Jan 2022 20:16:47 +0800</lastBuildDate><atom:link href="https://Phil-zyx.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>对go调度的浅读</title>
+      <link>https://Phil-zyx.github.io/posts/%E5%AF%B9go%E8%B0%83%E5%BA%A6%E7%9A%84%E6%B5%85%E8%AF%BB/</link>
+      <pubDate>Sun, 09 Jan 2022 20:16:47 +0800</pubDate>
+      
+      <guid>https://Phil-zyx.github.io/posts/%E5%AF%B9go%E8%B0%83%E5%BA%A6%E7%9A%84%E6%B5%85%E8%AF%BB/</guid>
+      <description>go语言为什么能变的如此受欢迎，很大一个原因是其原生支持高并发，而这核心来自goroutine的设计，而对goroutine的管理则离不开go的调度器。
+调度的定义  要理解调度，就必要先理解操作系统、进程、线程等调度的基本概念。
+  操作系统：一种计算机程序，管理硬件与软件资源，计算机系统的&amp;quot;底层软件&amp;quot;，如windows,macOS,Linux 进程：操作系统下程序运行单位，有独立的内存，由内核调度 线程：操作系统调度最小单元，一般属于进程，共享进程的内存与资源，由内核调度（比进程轻量） 协程：用户级线程，不由内核调度，通过程序员显示的调度（比线程轻量） 调度：调度本质上就是一个资源分配算法。  Go 调度设计  goroutine 和线程的关系即一个main函数创建一个操作线程——主线程，之后会由go的调度模型来负责创建和管理 goroutine 分配到具体哪个线程.
+ 历史  最简单的调度器（Go 0.x）：单线程 G-M：缺陷是程序只能存在一个活跃线程 改进为多线程（Go 1.0）：G-M：互斥锁带来的开销 进阶版本（Go 1.2 至今）：G-P-M：多了一层P抽象  G-P-M   定义：src/runtime/runtime2.go
+  G：goroutine，需要绑定一个 m 来运行
+type g struct { ... m *m // current m; offset known to arm liblink  preempt bool // 抢占标记  stackguard0 uintptr //  ... }   P：processor, a resource that is required to execute Go code.</description>
+    </item>
+    
     <item>
       <title>漫谈游戏服务器节点通信</title>
       <link>https://Phil-zyx.github.io/posts/%E6%BC%AB%E8%B0%88%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%8A%82%E7%82%B9%E9%80%9A%E4%BF%A1/</link>

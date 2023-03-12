@@ -5,7 +5,30 @@
     <link>https://Phil-zyx.github.io/posts/</link>
     <description>Recent content in Posts on 孩子不会飞</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 14 Mar 2021 15:21:31 +0800</lastBuildDate><atom:link href="https://Phil-zyx.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 Mar 2023 23:24:25 +0800</lastBuildDate><atom:link href="https://Phil-zyx.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>游戏服务器开发的未来？</title>
+      <link>https://Phil-zyx.github.io/posts/gameserverprogrammer/</link>
+      <pubDate>Sun, 05 Mar 2023 23:24:25 +0800</pubDate>
+      
+      <guid>https://Phil-zyx.github.io/posts/gameserverprogrammer/</guid>
+      <description>脑暴想法的由来  话题来自知乎，从而衍生的想法，记录下来 游戏服务器开发属于游戏开发鄙视链底端？ 米哈游出品的原神，告诉了游戏服务器开发一个事情，策划+客户端+美术出品的若服务器游戏模式也可以相当成功。是不是随着原神模式的发展，游戏服务器开发这个岗位需求将越来越少？ chatGPT 这把火越烧越大，游戏服务器开发能集成进游戏服务端去吗？游戏服务器开发能不能造就现象级的，对游戏具备影响的东西呢？  自问自答  游戏服务器开发是不是在鄙视链末端，这点有待商榷，就当前SLG游戏来说，作为打工人的同事，策划or运营，都认为自己在末端。技术无边界，这里的出发点是单纯从游戏来说，游戏的核心是玩法和表现，这里最重要的是策划、客户端、美术，这些东西是直接影响到玩家的，作为一个游戏玩家，不会直观的了解到服务器，这也说明服务器对游戏的影响很小。如此，服务器开发确实在一个末端。 最近刷到原神又成为了收入榜头名，原神模式是不是真的可以抄作业呢？我认为不可。从游戏收入排行榜来看，此模式仅此一家，此类游戏的市场份额极小。同榜单的王者、PUBG等模式仍然是主流，这类和服务器强交互的游戏依然是市场的大头。原神模式会带动一些厂商往这个方向靠，但是赛道依然是各种游戏品类共进的，大部分游戏品类，是无法脱离服务器的。 特别是openAI开放了接口之后，各类chatGPT衍生的项目如雨后春笋般。有些让人眼前一亮的，如chatPDF、自建的自动客服等。那么对于游戏来说，有哪些地方可以接入：对话NPC、游戏内的自动客服、游戏玩法介绍问答等。而现象级的，我想应该是真正的AI，比如引导机器人、对战机器人，可以做到有边界，也有训练，真正做到玩家无法感知其是否是人机。  一些思考  开发不应该设置技术壁垒。具体的说游戏服务器开发和后端开发，客户端开发只是技术侧重点差别而已，其技术本身并没有太大的差别，程序始终都应该保持对技术本身的追求。 如果有想要做独立游戏的想法，那么技术无边界也引导自身去学习客户端开发。AI的发展，像是图像生成已经变得相当可行，做产品会比之前更加简单，我们要去成为站在巨人肩膀上的人。 畅想未来游戏服务器是怎么样的？   云与云计算 AI像真实玩家一样 云游戏，随时随地3A大作 脑机接口 and VR：像《游戏玩家》一样的游戏  </description>
+    </item>
+    
+    <item>
+      <title>对go调度的浅读</title>
+      <link>https://Phil-zyx.github.io/posts/%E5%AF%B9go%E8%B0%83%E5%BA%A6%E7%9A%84%E6%B5%85%E8%AF%BB/</link>
+      <pubDate>Sun, 09 Jan 2022 20:16:47 +0800</pubDate>
+      
+      <guid>https://Phil-zyx.github.io/posts/%E5%AF%B9go%E8%B0%83%E5%BA%A6%E7%9A%84%E6%B5%85%E8%AF%BB/</guid>
+      <description>go语言为什么能变的如此受欢迎，很大一个原因是其原生支持高并发，而这核心来自goroutine的设计，而对goroutine的管理则离不开go的调度器。
+调度的定义  要理解调度，就必要先理解操作系统、进程、线程等调度的基本概念。
+  操作系统：一种计算机程序，管理硬件与软件资源，计算机系统的&amp;quot;底层软件&amp;quot;，如windows,macOS,Linux 进程：操作系统下程序运行单位，有独立的内存，由内核调度 线程：操作系统调度最小单元，一般属于进程，共享进程的内存与资源，由内核调度（比进程轻量） 协程：用户级线程，不由内核调度，通过程序员显示的调度（比线程轻量） 调度：调度本质上就是一个资源分配算法。  Go 调度设计  goroutine 和线程的关系即一个main函数创建一个操作线程——主线程，之后会由go的调度模型来负责创建和管理 goroutine 分配到具体哪个线程.
+ 历史  最简单的调度器（Go 0.x）：单线程 G-M：缺陷是程序只能存在一个活跃线程 改进为多线程（Go 1.0）：G-M：互斥锁带来的开销 进阶版本（Go 1.2 至今）：G-P-M：多了一层P抽象  G-P-M   定义：src/runtime/runtime2.go
+  G：goroutine，需要绑定一个 m 来运行
+type g struct { ... m *m // current m; offset known to arm liblink  preempt bool // 抢占标记  stackguard0 uintptr //  ... }   P：processor, a resource that is required to execute Go code.</description>
+    </item>
+    
     <item>
       <title>漫谈游戏服务器节点通信</title>
       <link>https://Phil-zyx.github.io/posts/%E6%BC%AB%E8%B0%88%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%8A%82%E7%82%B9%E9%80%9A%E4%BF%A1/</link>
