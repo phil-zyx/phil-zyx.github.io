@@ -204,6 +204,27 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2>读ants源码，理解goroutine pool
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>先思考一个问题：
+go team 说我们可以创建成千上万个 goroutine 用于处理并发，那么我们还需要 goroutine pool 吗？
+go team 这么说的底气在于其调度模型 G-P-M，确实
+但是，没有什么是绝对的，比如100w goroutines or more and more
+那么一旦 goroutine 数量过多就会导致资源侵占，CPU暴涨，那么怎么办？
+池化! 复用goroutine
+ ants是一个高性能的协程池，实现了对大规模goroutine的调度管理、goroutine复用，允许使用者在开发并发程序的时候限制协程数量，复用资源，达到更高效执行任务的效果。
+提纲  池化技术 ants 如何在项目中使用 *ants 代码设计 学习到的优秀源码  池化技术 池化技术是一种通过创建池子来提高对象复用的常用技术，减少重复创建、销毁的开销。常用池化技术有内存池、对象池、线程池、连接池等。在go语言，goroutine的复用可以理解为线程池技术。ants是一个优秀的代码库，被广泛用于生产环境。
+ants 的使用  在其官方的README文件有详细的用法说明，这里简单介绍下基础使用
+ p, err := ants.NewPool(workerNum) if err != nil { // 错误处理 } defer p.Release() // 关闭时释放 // 工作任务 worker := func() { xxx } // 提交任务 err := p....</p>
+  </section>
+  <footer class="entry-footer"><span title='2022-03-06 22:00:20 +0800 CST'>March 6, 2022</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;孩子不会飞</footer>
+  <a class="entry-link" aria-label="post link to 读ants源码，理解goroutine pool" href="https://Phil-zyx.github.io/posts/%E8%AF%BBants%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3%E7%BA%BF%E7%A8%8B%E6%B1%A0/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2>对go调度的浅读
     </h2>
   </header>
