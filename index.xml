@@ -109,5 +109,32 @@ func main() { times := 100 go func() { for i := 0; i&amp;lt;times; i++ { println
     
     
     
+    <item>
+      <title>支持与帮助</title>
+      <link>https://Phil-zyx.github.io/support/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://Phil-zyx.github.io/support/</guid>
+      <description>支持与帮助</description>
+    </item>
+    
+    <item>
+      <title>服务条款</title>
+      <link>https://Phil-zyx.github.io/terms/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://Phil-zyx.github.io/terms/</guid>
+      <description>服务条款</description>
+    </item>
+    
+    <item>
+      <title>隐私权政策</title>
+      <link>https://Phil-zyx.github.io/privacy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://Phil-zyx.github.io/privacy/</guid>
+      <description>隐私权政策</description>
+    </item>
+    
   </channel>
 </rss>
